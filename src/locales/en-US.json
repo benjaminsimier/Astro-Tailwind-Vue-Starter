@@ -1,3 +1,12 @@
 {
-  "home.title": "Hello"
+  "siteTitle": "Project Name",
+
+  "nav.home": "Home",
+  "nav.about": "About",
+  "nav.contact": "Contact",
+
+  "home.title": "Data to enrich your online business",
+  "home.subtitle": "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+
+  "footer.copyright": "Copyright"
 }

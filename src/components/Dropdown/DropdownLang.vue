@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { languages } from "@i18n/ui";
 
 const props = defineProps<{
@@ -38,7 +38,7 @@ const props = defineProps<{
   url: string;
   lang: string;
   flag: boolean,
-  load: () => void;
+  load?: () => void;
 }>();
 
 const isOpen = ref(false);

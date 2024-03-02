@@ -1,52 +1,69 @@
 ---
-interface Props {
-  title: string;
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+import faviconImport from "@assets/images/favicon.png";
+import ogImageImport from "@assets/images/ogImage.jpg";
+
+import Header from "@components/Header.vue";
+import Footer from "@components/Footer.vue";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  robots?: string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang as any);
+
+const favicon = faviconImport;
+
 const { title } = Astro.props;
+const { description } = Astro.props;
+const { ogImage } = Astro.props;
+const { robots } = Astro.props;
+
+let ogImageLink = ogImageImport.src;
+if (ogImage) {
+  ogImageLink = ogImage as any;
+}
+
+let robotsMeta = "index, follow";
+if (robots) {
+  robotsMeta = robots;
+}
+
+const currentUrl = Astro.url;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta property="og:title" content={title + " | " + t("siteTitle")} />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={lang} />
+    <meta property="og:image" content={ogImageLink} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="robots" content={robotsMeta} />
+
+    <link rel="icon" type="image/svg+xml" href={favicon.src} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
     <title>{title}</title>
   </head>
   <body>
+    <Header client:load lang={lang} url={Astro.url} />
     <slot />
+    <Footer client:load lang={lang} url={Astro.url} />
   </body>
 </html>
-<style is:global>
-  :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
-  }
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-  }
-  code {
-    font-family:
-      Menlo,
-      Monaco,
-      Lucida Console,
-      Liberation Mono,
-      DejaVu Sans Mono,
-      Bitstream Vera Sans Mono,
-      Courier New,
-      monospace;
-  }
-</style>

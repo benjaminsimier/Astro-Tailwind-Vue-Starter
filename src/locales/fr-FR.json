@@ -1,3 +1,10 @@
 {
-  "home.title": "Bonjour"
+  "siteTitle": "Nom du projet",
+  "home.title": "Bonjour",
+
+  "nav.home": "Accueil",
+  "nav.about": "A propos",
+  "nav.contact": "Contact",
+
+  "footer.copyright": "Copyright"
 }
